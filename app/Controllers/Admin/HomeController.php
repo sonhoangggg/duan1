@@ -1,6 +1,8 @@
 <?php
 class HomeController{
     public function dashboard(){
-        echo "Home Page";
+        $homemodel = new HomeModel();
+        $dataUser = $homemodel->getUsers();
+        var_dump($dataUser);
     }
 }

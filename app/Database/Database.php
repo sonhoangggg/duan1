@@ -7,7 +7,7 @@
         $db = "duan1";
         $user = "root";
         $password = "";
-        $port="3307";
+        $port="3306";
 
         $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=UTF8";
         try {
