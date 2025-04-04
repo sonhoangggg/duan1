@@ -4,7 +4,7 @@
     public function __construct()
     {
         $host ="localhost";
-        $db = "duan1";
+        $db = "du_an_vong_tay_cao_cap";
         $user = "root";
         $password = "";
         $port="3306";
