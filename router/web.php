@@ -10,6 +10,50 @@ if ($role == "user") {
             $dashBoardController->dashboard();
             break;
         }
+        case 'login': {
+            $loginController = new LoginUserController();
+            $loginController->login();
+            break;
+        }
+
+        case 'post-login': {
+            $loginController = new LoginUserController();
+            $loginController->postLogin();
+            break;
+        }
+
+        case 'logout': {
+            $loginController = new LoginUserController();
+            $loginController->logout();
+            break;
+        }
+
+        case 'register': {
+            $loginController = new LoginUserController();
+            $loginController->register();
+            break;
+        }
+
+        case 'post-register': {
+            $loginController = new LoginUserController();
+            $loginController->postRegister();
+            break;
+        }
+        case 'my-account': {
+            $dashBoardController = new DashboardController();
+            $dashBoardController->myAccount();
+            break;
+        }
+        case 'account-detail': {
+            $dashBoardController = new DashboardController();
+            $dashBoardController->accountDetail();
+            break;
+        }
+        case 'account-update': {
+            $dashBoardController = new DashboardController();
+            $dashBoardController->accountUpdate();
+            break;
+        }
 
     }
 }else{
@@ -19,5 +63,23 @@ if ($role == "user") {
                 $homeController = new HomeController();
                 $homeController->dashboard();
                 break;
+            
+            case 'login':
+                $loginController = new LoginController();
+                $loginController->login();
+                break;
+    
+            case 'post-login':
+                $loginController = new LoginController();
+                $loginController->postLogin();
+                break;
+    
+            case 'logout':
+                $loginController = new LoginController();
+                $loginController->logout();
+                break;
+
+
             }
+    
 }
