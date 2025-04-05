@@ -7,6 +7,5 @@ class OrderController{
         $orders = $orderModel->getAllOrder();
         include 'app/Views/Admin/show-order.php';
     }
-
     
 }

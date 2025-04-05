@@ -15,6 +15,12 @@ class OrderModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public function doanhThu(){
+
+    }
+    public function tongDonHang(){
+        
+    }
 
    
 }
