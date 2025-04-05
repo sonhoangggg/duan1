@@ -191,6 +191,12 @@ if ($role == "user") {
             $userController->deleteUser();
             break;
         }
+        //Quản lí đơn hàng
+        case 'show-order': {
+            $orderController = new OrderController();
+            $orderController->showOrder();
+            break;
+        }
 
 
 

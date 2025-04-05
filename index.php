@@ -7,6 +7,7 @@ include 'app/Models/Admin/HomeModel.php';
 include 'app/Models/Admin/CategoryModel.php';
 include 'app/Models/Admin/ProductModel.php';
 include 'app/Models/Admin/UserModel.php';
+include 'app/Models/Admin/OrderModel.php';
 
 
  // User
@@ -20,6 +21,8 @@ include 'app/Models/Admin/UserModel.php';
     include 'app/Controllers/Admin/CategoryController.php';
     include 'app/Controllers/Admin/ProductController.php';
     include 'app/Controllers/Admin/UserController.php';
+    include 'app/Controllers/Admin/OrderController.php';
+
 
 
     // User
