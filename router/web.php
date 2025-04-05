@@ -155,7 +155,26 @@ if ($role == "user") {
             $userController = new UserController();
             $userController->getAllUser();
             break;
+
         }
+        case 'show-user': {
+            $userController = new UserController();
+            $userController->showUser();
+            break;
+        }
+
+        case 'add-user': {
+            $userController = new UserController();
+            $userController->addUser();
+            break;
+        }
+
+        case 'post-add-user': {
+            $userController = new UserController();
+            $userController->addPostUser();
+            break;
+        }git add .
+
 
 
     }
