@@ -16,10 +16,16 @@ class OrderModel
         return $stmt->fetchAll();
     }
     public function doanhThu(){
+        $sql = "SELECT SUM(total) AS revenue FROM `order` WHERE status = 'completed'";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result ? $result['revenue'] : 0;
 
     }
     public function tongDonHang(){
-        
+
     }
 
    
