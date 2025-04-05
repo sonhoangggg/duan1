@@ -173,7 +173,24 @@ if ($role == "user") {
             $userController = new UserController();
             $userController->addPostUser();
             break;
-        }git add .
+        }
+        case 'update-user': {
+            $userController = new UserController();
+            $userController->updateUser();
+            break;
+        }
+
+        case 'update-post-user': {
+            $userController = new UserController();
+            $userController->updatePostUser();
+            break;
+        }
+
+        case 'delete-user': {
+            $userController = new UserController();
+            $userController->deleteUser();
+            break;
+        }
 
 
 
