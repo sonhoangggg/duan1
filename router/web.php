@@ -78,8 +78,24 @@ if ($role == "user") {
                 $loginController = new LoginController();
                 $loginController->logout();
                 break;
+                 //quản lý danh mục
+        case 'all-category':
+            $categoryController = new CategoryController();
+            $categoryController->getAllCategory();  
+            break;
+
+        case 'add-category':
+            $categoryController = new CategoryController();
+            $categoryController->addCategory();  
+            break;
+
+        case 'add-post-category':
+            $categoryController = new CategoryController();
+            $categoryController->addPostCategory();  
+            break;
 
 
-            }
+    }
+            
     
 }
