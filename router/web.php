@@ -60,6 +60,12 @@ if ($role == "user") {
             $dashboardController->showShop();
             break;
         }
+        //Gio hàng
+        case 'show-to-cart': {
+            $dashBoardController = new DashboardController();
+            $dashBoardController->showToCart();
+            break;
+        }
        
 
     }

@@ -12,6 +12,9 @@ include 'app/Models/Admin/OrderModel.php';
 
  // User
  include 'app/Models/Users/LoginModel.php';
+ include 'app/Models/Users/CartUserModel.php';
+ include 'app/Models/Users/CategoryUserModel.php';
+ include 'app/Models/Users/ProductUserModel.php';
 
 // Controller
     // Admin
