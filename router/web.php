@@ -108,7 +108,7 @@ if ($role == "user") {
                 $categoryController = new CategoryController();
                 $categoryController->updatePostCategory();  
                 break;
-                
+        // quản lí sản phẩm
         case 'all-product': {
             $productController = new ProductController();
             $productController->showAllProduct();
@@ -148,6 +148,12 @@ if ($role == "user") {
         case 'show-product': {
             $productController = new ProductController();
             $productController->showProduct();
+            break;
+        }
+        // Quản lý user
+        case 'all-user': {
+            $userController = new UserController();
+            $userController->getAllUser();
             break;
         }
 
