@@ -97,6 +97,7 @@ class DashboardController
         $data = $cartModel->showCartModel();
         echo json_encode($data);
     }
+
     public function updateToCart()
     {
         $cartModel = new CartUserModel();

@@ -1,8 +1,12 @@
 <?php
-class HomeController{
-    public function dashboard(){
-        $homemodel = new HomeModel();
-        $dataUser = $homemodel->getUsers();
-        var_dump($dataUser);
+class HomeController extends ControllerAdmin
+{
+    public function dashboard()
+    {
+        // Lấy doanh thu và số đơn hàng
+        $orderModel = new OrderModel();
+        $revenue = $orderModel->doanhThu();
+        $totalOrders = $orderModel->tongDonHang();
+        include 'app/Views/Admin/index.php';
     }
 }
