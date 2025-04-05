@@ -98,53 +98,8 @@ class CartUserModel
         return $stmt->fetchAll();
     }
 
-    public function updateCartModel()
-    {
-        $cart_detail_Id = $_POST['cart_detail_id'];
-        $action = $_POST['action']; // increase, decrease, deleted
+   
+    
 
-        switch ($action) {
-            case 'increase': {
-                    $sql = "UPDATE `cart_detail` SET `quantity` = quantity + 1 WHERE id = :cart_detail_id";
-                    $stmt = $this->db->pdo->prepare($sql);
-                    $stmt->bindParam(':cart_detail_id', $cart_detail_Id);
-                    $stmt->execute();
-                    break;
-                }
-
-            case 'decrease': {
-                    $sql = "UPDATE `cart_detail` SET `quantity`= quantity - 1 WHERE id = :cart_detail_id and quantity > 1";
-                    $stmt = $this->db->pdo->prepare($sql);
-                    $stmt->bindParam(':cart_detail_id', $cart_detail_Id);
-                    $stmt->execute();
-                    break;
-                }
-
-            case 'deleted': {
-                    $sql = "DELETE FROM `cart_detail` WHERE id = :cart_detail_id";
-                    $stmt = $this->db->pdo->prepare($sql);
-                    $stmt->bindParam(':cart_detail_id', $cart_detail_Id);
-                    $stmt->execute();
-                    break;
-                }
-        }
-        return $this->showCartModel();
-    }
-
-    public function deleteCartDetail()
-    {
-        $userId = $_SESSION['users']['id'];
-        $sql = "SELECT * FROM `cart` WHERE user_id = :user_id";
-        $stmt = $this->db->pdo->prepare($sql);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->execute();
-        $cart = $stmt->fetch();
-        if ($cart) {
-            $sql = "DELETE FROM `cart_detail` WHERE cart_id = :cart_id";
-            $stmt = $this->db->pdo->prepare($sql);
-            $stmt->bindParam(':cart_id', $cart->id);
-            return $stmt->execute();
-        }
-        return false;
-    }
+    
 }
