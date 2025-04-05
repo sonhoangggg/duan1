@@ -54,6 +54,13 @@ if ($role == "user") {
             $dashBoardController->accountUpdate();
             break;
         }
+        //hiển thị tất cả sản phẩm sản phẩm
+        case 'shop': {
+            $dashboardController = new DashboardController();
+            $dashboardController->showShop();
+            break;
+        }
+       
 
     }
 }else{
