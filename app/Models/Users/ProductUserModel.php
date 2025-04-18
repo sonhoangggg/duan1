@@ -1,45 +1,32 @@
 <?php
+
 class ProductUserModel {
     public $db;
-    public function __construct()
-    {
+    public function __construct(){
         $this->db = new Database();
     }
 
-    public function getProductDB(){
-        $sql = "SELECT * FROM products ORDER BY RAND() LIMIT 8";
+    public function getProductDashboard(){
+        $sql = "SELECT * FROM products ORDER BY RAND() LIMIT 12";
         $query = $this->db->pdo->query($sql);
         $result = $query->fetchAll();
         return $result;
     }
-
     public function getDataShop(){
         $sql = "SELECT * FROM `products`";
         if(isset($_GET['category_id'])){
-            $sql = $sql . "where category_id = :category_id";           
+            $sql = $sql . " WHERE category_id = :category_id";
             $stmt = $this->db->pdo->prepare($sql);
-            $stmt->bindParam(':category_id', $_GET['category_id']);
-        }else{
+            $stmt->bindParam(':category_id', $_GET['category_id'] );
+        } else{
             $stmt = $this->db->pdo->prepare($sql);
         }
+
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
     }
 
-    public function getProductById(){
-        if(isset($_GET['product_id'])){
-            $product_id = intval($_GET['product_id']); 
-            $sql = "SELECT * FROM `products` WHERE id = :id";
-            $stmt = $this->db->pdo->prepare($sql);
-            $stmt->bindParam(':id', $product_id, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetch();
-            return $result ?: null; 
-        }
-        return null;
-    }
-    
     public function getProductStock(){
         $sql1 = "SELECT COUNT(id) as instock FROM `products` where stock > 0";
         $query1 = $this->db->pdo->query($sql1);
@@ -59,11 +46,22 @@ class ProductUserModel {
         return $result;
     }
 
+    public function getProductById(){
+        if(isset($_GET['product_id'])){
+            $sql = "SELECT * FROM `products` WHERE id = :id";
+            $stmt = $this->db->pdo->prepare($sql);
+            $stmt->bindParam(':id', $_GET['product_id'] );
+            $stmt->execute();
+            $result = $stmt->fetch();
+            return $result;
+        }
+    }
+
     public function getProductImageById(){
         if(isset($_GET['product_id'])){
             $sql = "SELECT * FROM `product_image` WHERE product_id = :id";
             $stmt = $this->db->pdo->prepare($sql);
-            $stmt->bindParam(':id', $_GET['product_id']);
+            $stmt->bindParam(':id', $_GET['product_id'] );
             $stmt->execute();
             $result = $stmt->fetchAll();
             return $result;
@@ -86,42 +84,36 @@ class ProductUserModel {
         $stmt->bindParam(':product_id', $productId);
         $stmt->execute();
         $result = $stmt->fetchAll();
-        return $result; 
+        return $result;
     }
 
     public function saveRating(){
-        $sql = "SELECT * FROM product_rating WHERE user_id = :user_id AND product_id = :product_id";  
-        $stmt = $this->db->pdo->prepare($sql);  
-        $stmt->bindParam(':user_id', $_SESSION['users']['id']);  
-        $stmt->bindParam(':product_id', $_POST['productId']);  
-        $stmt->execute();  
-
-        if ($stmt->fetch()) {  
-            $sql = "UPDATE `product_rating` SET `rating` = :rating WHERE user_id = :user_id AND product_id = :product_id";  
-            $stmt = $this->db->pdo->prepare($sql);  
-            $stmt->bindParam(':user_id', $_SESSION['users']['id']);  
-            $stmt->bindParam(':rating', $_POST['rate']);  
-            $stmt->bindParam(':product_id', $_POST['productId']);  
-        }  
-
-        // return $stmt->execute();
-
+        $sql = "select * from product_rating where user_id = :user_id and product_id = :product_id";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $_SESSION['users']['id']);
+        $stmt->bindParam(':product_id', $_POST['productId']);
+        $stmt->execute();
+        if($stmt->fetch()){     
+        $sql = "UPDATE `product_rating` SET `rating`=:rating WHERE user_id = :user_id and product_id = :product_id";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $_SESSION['users']['id']);
+        $stmt->bindParam(':rating', $_POST['rate']);
+        $stmt->bindParam(':product_id', $_POST['productId']);
+        return $stmt->execute();
+        }
 
         $productId = $_POST['productId'];
-        $rate = $_POST['rate'];
+        $rate =  $_POST['rate'];
         $userid = $_SESSION['users']['id'];
         $now = date('Y-m-d H:i:s');
-        $sql = "INSERT INTO `product_rating`(`product_id`, `user_id`, `rating`, `created_at`) 
-        VALUES (:product_id, :user_id, :rating, :created_at)";
+        $sql = "INSERT INTO `product_rating`(`product_id`, `user_id`, `rating`, `created_at`) VALUES (:product_id, :user_id, :rating, :created_at)";
         $stmt = $this->db->pdo->prepare($sql);
         $stmt->bindParam(':product_id', $productId);
         $stmt->bindParam(':user_id', $userid);
         $stmt->bindParam(':rating', $rate);
         $stmt->bindParam(':created_at', $now);
-
         return $stmt->execute();
     }
-    
 
     public function saveComment(){
         $productId = $_POST['productId'];
@@ -129,6 +121,7 @@ class ProductUserModel {
         $comment = $_POST['comment'];
         $now = date('Y-m-d H:i:s');
         $parent = null;
+
         $sql = "INSERT INTO `product_comment`(`product_id`, `user_id`, `comment`, `created_at`, `parent`) VALUES (:product_id, :user_id, :comment, :created_at, :parent)";
         $stmt = $this->db->pdo->prepare($sql);
         $stmt->bindParam(':product_id', $productId);
@@ -138,9 +131,9 @@ class ProductUserModel {
         $stmt->bindParam(':parent', $parent);
         return $stmt->execute();
     }
-    
+
     public function getCommentByUser($productId, $userId){
-        $sql = "SELECT * FROM product_rating WHERE user_id = :user_id AND product_id = :product_id";
+        $sql = "select * from product_rating where user_id = :user_id and product_id= :product_id";
         $stmt = $this->db->pdo->prepare($sql);
         $stmt->bindParam(':product_id', $productId);
         $stmt->bindParam(':user_id', $userId);
@@ -155,6 +148,18 @@ class ProductUserModel {
         $stmt->execute();
         return $stmt->fetchAll();
     }
-}
 
-?>
+    public function avgRating($productId){
+        $sql = "SELECT avg(rating) as avgRating FROM `product_rating` WHERE product_id = :product_id";
+        $stmt = $this->db->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $productId);
+        $stmt->execute();
+        
+        $result = $stmt->fetch();
+        $avgRating = $result->avgRating;
+    
+        // Kiểm tra nếu avgRating là null, trả về 0
+        return $avgRating !== null ? round($avgRating, 1) : 0;
+    }
+    
+}
