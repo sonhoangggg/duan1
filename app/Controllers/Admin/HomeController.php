@@ -1,8 +1,8 @@
 <?php
-class HomeController{
+class HomeController extends ControllerAdmin{
     public function dashboard(){
-        $homemodel = new HomeModel();
-        $dataUser = $homemodel->getUsers();
-        var_dump($dataUser);
+        include 'app/Views/Admin/index.php';
     }
+
+    
 }
